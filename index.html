@@ -1402,12 +1402,16 @@
         }
 
         try {
-          const bravoText = `🎪 Новая заявка с сайта студии «Браво»!\n\n👤 Имя: ${name}\n📞 Телефон: ${phone}\n🎭 Направление: ${discipline}\n🎂 Возраст: ${group}`;
-          await fetch('https://script.google.com/macros/s/AKfycbyMofCaWewvuwdgLG89fhi4xKrvEhw9IxHzJtV1GADcOenQJgDd0zNoozTS8U9JfkEy/exec', {
+          await fetch('https://script.google.com/macros/s/AKfycbwoQMJv5-f6No1zURKHhO_VmSVHWSukcc2KQ_tQnwVBBmSbWxm7Z6Aw0oONKK4GPHJN/exec', {
             method: 'POST',
             mode: 'no-cors',
             headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-            body: JSON.stringify({ text: bravoText })
+            body: JSON.stringify({
+              name: name,
+              age: group,
+              phone: phone,
+              discipline: discipline
+            })
           });
 
           closeBookingModal();
