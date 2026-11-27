@@ -1401,33 +1401,19 @@
           submitBtn.textContent = 'Отправляем...';
         }
 
-        const tgText = [
-          '🎪 Новая заявка — Цирковая студия «Браво»',
-          '',
-          `👤 Ученик: ${name}`,
-          `📞 Телефон: ${phone}`,
-          `🤸 Направление: ${discipline}`,
-          `🎂 Возраст: ${group}`
-        ].join('\n');
-
-        const tgChatIds = ['1181846241', '674146401'];
         try {
-          const [tgRes1, tgRes2] = await Promise.allSettled(
-            tgChatIds.map((cid) =>
-              fetch('https://api.telegram.org/bot9020265412:AAG-ehs-hb5NHyDl3KL_wG_mYadZv9hht2U/sendMessage', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  chat_id: cid,
-                  text: tgText
-                })
-              }).then(async (r) => ({ ok: r.ok, data: await r.json().catch(() => ({})) }))
-            )
-          );
+          const response = await fetch('https://script.google.com/macros/s/AKfycbzz-4sqXldZZGZ7mqQ3p4jAw7NJwIDhqKJfgfgIE-k-9ZJ4Rkn5JZ7n_FSjk47PfKap/exec', {
+            method: 'POST',
+            body: JSON.stringify({
+              name: name,
+              age: group,
+              phone: phone,
+              discipline: discipline
+            })
+          });
+          const result = await response.json().catch(() => ({ ok: response.ok }));
 
-          const tgOk = (tgRes1.status === 'fulfilled' && tgRes1.value.ok && tgRes1.value.data.ok) || (tgRes2.status === 'fulfilled' && tgRes2.value.ok && tgRes2.value.data.ok);
-
-          if (tgOk) {
+          if (response.ok && result.ok !== false) {
             closeBookingModal();
             bookingForm.reset();
             studentPhoneInput.value = '+7 ';
