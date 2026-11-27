@@ -1402,25 +1402,18 @@
         }
 
         try {
-          const response = await fetch('https://script.google.com/macros/s/AKfycbzz-4sqXldZZGZ7mqQ3p4jAw7NJwIDhqKJfgfgIE-k-9ZJ4Rkn5JZ7n_FSjk47PfKap/exec', {
+          const bravoText = `🎪 Новая заявка с сайта студии «Браво»\n\nИмя: ${name}\nТелефон: ${phone}\nНаправление: ${discipline}\nВозраст: ${group}`;
+          await fetch('https://script.google.com/macros/s/AKfycbyMofCaWewvuwdgLG89fhi4xKrvEhw9IxHzJtV1GADcOenQJgDd0zNoozTS8U9JfkEy/exec', {
             method: 'POST',
-            body: JSON.stringify({
-              name: name,
-              age: group,
-              phone: phone,
-              discipline: discipline
-            })
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ text: bravoText })
           });
-          const result = await response.json().catch(() => ({ ok: response.ok }));
 
-          if (response.ok && result.ok !== false) {
-            closeBookingModal();
-            bookingForm.reset();
-            studentPhoneInput.value = '+7 ';
-            showToast('Заявка принята!', `${name}, мы получили вашу заявку на направление «${discipline}» (${group}) и скоро свяжемся с вами.`);
-          } else {
-            showToast('Не удалось отправить', 'Проверьте соединение и попробуйте ещё раз или позвоните по номеру +7 (920) 400-64-38.');
-          }
+          closeBookingModal();
+          bookingForm.reset();
+          studentPhoneInput.value = '+7 ';
+          showToast('Заявка принята!', `${name}, мы получили вашу заявку на направление «${discipline}» (${group}) и скоро свяжемся с вами.`);
         } catch (err) {
           showToast('Ошибка отправки', 'Не удалось отправить заявку. Попробуйте ещё раз или позвоните нам: +7 (920) 400-64-38.');
         } finally {
