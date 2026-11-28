@@ -1019,13 +1019,10 @@
       </a>
     </div>
 
-    <button id="quickContactToggle" type="button" aria-label="Открыть контакты" aria-expanded="false" class="relative px-4 py-2.5 rounded-full bg-velvet-950/95 border border-gold-400/85 text-gold-200 hover:text-white hover:border-gold-300 shadow-[0_0_20px_rgba(212,175,55,0.35)] backdrop-blur-md inline-flex items-center gap-2 cursor-pointer transition-all">
-      <span class="relative flex h-2 w-2" aria-hidden="true">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-300 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2 w-2 bg-gold-400"></span>
-      </span>
-      <span class="text-xs font-semibold tracking-wide">Связаться</span>
-      <i id="quickContactChevron" data-lucide="chevron-up" class="w-4 h-4 transition-transform duration-300"></i>
+    <button id="quickContactToggle" type="button" aria-label="Открыть контакты" aria-expanded="false" class="relative w-14 h-14 rounded-2xl bg-velvet-950/65 hover:bg-velvet-900/80 border border-white/25 hover:border-gold-300/75 text-white shadow-[0_8px_30px_rgba(0,0,0,0.45)] backdrop-blur-md inline-flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-105">
+      <svg id="quickContactChevron" class="w-6 h-6 transition-transform duration-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 3C6.477 3 2 6.805 2 11.5c0 2.382 1.153 4.534 3.012 6.08-.165 1.132-.64 2.26-1.367 3.058-.232.255.004.657.342.582 1.564-.346 3.076-1.055 4.183-1.787A11.4 11.4 0 0 0 12 20c5.523 0 10-3.805 10-8.5S17.523 3 12 3z"/>
+      </svg>
     </button>
   </div>
 
@@ -1668,11 +1665,11 @@
       function setQuickContactOpen(isOpen) {
         if (isOpen) {
           quickContactMenu.classList.add('is-open');
-          quickContactChevron.classList.add('rotate-180');
+          if (quickContactChevron) quickContactChevron.classList.add('scale-90');
           quickContactToggle.setAttribute('aria-expanded', 'true');
         } else {
           quickContactMenu.classList.remove('is-open');
-          quickContactChevron.classList.remove('rotate-180');
+          if (quickContactChevron) quickContactChevron.classList.remove('scale-90');
           quickContactToggle.setAttribute('aria-expanded', 'false');
         }
       }
